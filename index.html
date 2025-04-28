@@ -43,6 +43,13 @@
     .hidden {
       display: none;
     }
+    #paypalMessage {
+      display: none;
+      font-size: 20px;
+      color: #333;
+      margin-top: 30px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -58,13 +65,18 @@ Cliquez sur le bouton ci-dessous pour commencer.</p>
   <h2>Merci ! 🥰</h2>
   <p>Veuillez laisser un avis sur notre page Google.<br><br>
   Ensuite, revenez ici et cliquez sur "J'ai envoyé mon avis".</p>
-  <a href="https://www.google.com/search?q=Nom+Du+Restaurant" target="_blank">
+  <a href="https://www.google.com/search?q=carnival+reims" target="_blank">
     <button id="googleLink" style="margin-top: 20px;">Laisser un Avis</button>
   </a><br><br>
   <button id="confirmButton">J'ai envoyé mon avis</button>
 </div>
 
 <div id="loading">⏳ Vérification de votre avis... Merci de patienter 10 secondes...</div>
+
+<div id="paypalMessage" class="hidden">
+  <p>📢 Vous allez être redirigé vers PayPal pour vous connecter et recevoir votre 1€ 🤑</p>
+  <p>Merci pour votre patience ! 🙏</p>
+</div>
 
 <div id="finalMessage" class="hidden">✅ Merci ! Votre 1€ sera envoyé sous peu 🎉</div>
 
@@ -81,12 +93,12 @@ document.getElementById('confirmButton').addEventListener('click', function() {
   // Attendre 10 secondes (simulation)
   setTimeout(function() {
     document.getElementById('loading').style.display = 'none';
-    document.getElementById('finalMessage').classList.remove('hidden');
+    document.getElementById('paypalMessage').classList.remove('hidden');
 
-    // Redirection vers "merci.html" après 10 secondes
+    // Attendre encore 3 secondes avant de rediriger
     setTimeout(function() {
-      window.location.href = "merci.html";
-    }, 3000);  // 3 secondes avant redirection
+      window.location.href = "merci.html";  // Redirection vers la page "merci.html"
+    }, 3000);  // 3 secondes de délai avant la redirection
   }, 10000); // 10 secondes d'attente
 });
 </script>
