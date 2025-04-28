@@ -95,6 +95,17 @@ document.getElementById('confirmButton').addEventListener('click', function() {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('paypalMessage').classList.remove('hidden');
 
+    // Afficher une notification dans le navigateur
+    if (Notification.permission === "granted") {
+      new Notification("Vous allez être redirigé vers PayPal pour recevoir votre 1€ !");
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then(function(permission) {
+        if (permission === "granted") {
+          new Notification("Vous allez être redirigé vers PayPal pour recevoir votre 1€ !");
+        }
+      });
+    }
+
     // Attendre encore 3 secondes avant de rediriger
     setTimeout(function() {
       window.location.href = "merci.html";  // Redirection vers la page "merci.html"
