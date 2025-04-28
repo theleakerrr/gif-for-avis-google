@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Recevez 1€ pour votre Avis Google ⭐</title>
+  <style>
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(to right, #FFDEE9, #B5FFFC);
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+    h1 {
+      color: #333;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+    #startButton, #confirmButton {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #ff7eb9;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #startButton:hover, #confirmButton:hover {
+      background-color: #ff4fa2;
+    }
+    #loading, #finalMessage {
+      display: none;
+      font-size: 20px;
+      color: #333;
+      margin-top: 30px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>⭐ Laissez-nous un Avis Google ⭐</h1>
+
+<p>Nous vous offrons 1€ pour votre avis honnête sur notre restaurant !<br><br>
+Cliquez sur le bouton ci-dessous pour commencer.</p>
+
+<button id="startButton">Commencer</button>
+
+<div id="instructions" class="hidden">
+  <h2>Merci ! 🥰</h2>
+  <p>Veuillez laisser un avis sur notre page Google.<br><br>
+  Ensuite, revenez ici et cliquez sur "J'ai envoyé mon avis".</p>
+  <a href="https://www.google.com/search?q=Nom+Du+Restaurant" target="_blank">
+    <button id="googleLink" style="margin-top: 20px;">Laisser un Avis</button>
+  </a><br><br>
+  <button id="confirmButton">J'ai envoyé mon avis</button>
+</div>
+
+<div id="loading">⏳ Vérification de votre avis... Merci de patienter 10 secondes...</div>
+
+<div id="finalMessage" class="hidden">✅ Merci ! Votre 1€ sera envoyé sous peu 🎉</div>
+
+<script>
+document.getElementById('startButton').addEventListener('click', function() {
+  document.getElementById('startButton').style.display = 'none';
+  document.getElementById('instructions').classList.remove('hidden');
+});
+
+document.getElementById('confirmButton').addEventListener('click', function() {
+  document.getElementById('instructions').style.display = 'none';
+  document.getElementById('loading').style.display = 'block';
+
+  // Attendre 10 secondes (simulation)
+  setTimeout(function() {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('finalMessage').classList.remove('hidden');
+
+    // Redirection vers "merci.html" après 10 secondes
+    setTimeout(function() {
+      window.location.href = "merci.html";
+    }, 3000);  // 3 secondes avant redirection
+  }, 10000); // 10 secondes d'attente
+});
+</script>
+
+</body>
+</html>
